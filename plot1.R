@@ -15,16 +15,16 @@ if(!file.exists("./data_power_consumption.zip")) {                       ##check
 
 ##Read and Subset data
 dataFile <- "household_power_consumption.txt"  
-fullData <- read.table(dataFile, header=TRUE, sep=";", dec=".")          ##Read Data
+fullData <- read.table(dataFile, header=TRUE, sep=";",stringsAsFactors=FALSE, dec=".")          ##Read Data
 
 
-subData <- fullData[fullData$Date %in% c("1/2/2007","2/2/2007") ,]      ##extract relevant dates     
+subData <- fullData[fullData$Date %in% c("1/2/2007","2/2/2007") ,]                              ##extract relevant dates     
 
 
 ##Plot1
-plotData <- as.numeric(as.character(subData$Global_active_power))
+subData$Global_active_power <- as.numeric(subData$Global_active_power)
 png("plot1.png", width=480, height=480)
-hist(plotData, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+hist(subData$Global_active_power, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
 dev.off()
 
 
